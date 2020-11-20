@@ -1,11 +1,15 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TournamentTrackerLibrary
-{   
+namespace TrackerLibrary
+{
     /// <summary>
     /// Represents one match in the tournament.
     /// </summary>
-    public class MatchupModel
+    class MatchupModel
     {
         /// <summary>
         /// The set of teams that are involved in this match.
@@ -16,11 +20,10 @@ namespace TournamentTrackerLibrary
         /// Winner of the match.
         /// </summary>
         public TeamModel Winner { get; set; }
-        
+
         /// <summary>
         /// Which round is this match part of.
         /// </summary>
         public int MatchRound { get; set; }
-        
     }
 }

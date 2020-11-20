@@ -1,8 +1,12 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TournamentTrackerLibrary
+namespace TrackerLibrary
 {
-    public class TeamModel
+    class TeamModel
     {
         /// <summary>
         /// List of team members
