@@ -9,7 +9,7 @@ namespace TrackerLibrary
     /// <summary>
     /// Represents one match in the tournament.
     /// </summary>
-    class MatchupModel
+    public class MatchupModel
     {
         /// <summary>
         /// The set of teams that are involved in this match.

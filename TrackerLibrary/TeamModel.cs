@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrackerLibrary
 {
-    class TeamModel
+    public class TeamModel
     {
         /// <summary>
         /// List of team members

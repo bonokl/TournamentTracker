@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace TrackerLibrary
 {
-    class PrizeModel
+    public class PrizeModel
     {
+        /// <summary>
+        /// The unique identifier for the prize.
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// Place number for created prize (1st Place, 2nd place,...)
         /// </summary>
@@ -27,5 +32,26 @@ namespace TrackerLibrary
         /// Percentage of total prize fund
         /// </summary>
         public double PrizePercentage { get; set; }
+
+        public PrizeModel()
+        {
+
+        }
+
+        public PrizeModel(string placeName, string placeNumber, string prizeAmount, string prizePercetage)
+        {
+            PlaceName = placeName;
+            
+            int.TryParse(placeNumber, out int placeNumberValue);
+            PlaceNumber = placeNumberValue;
+
+            decimal.TryParse(prizeAmount, out decimal prizeAmountValue);
+
+            PrizeAmount = prizeAmountValue;
+
+            double.TryParse(prizePercetage, out double prizePercentageValue);
+
+            PrizePercentage = prizePercentageValue;
+        }
     }
 }
