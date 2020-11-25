@@ -99,5 +99,60 @@ namespace TrackerLibrary.DataAccess.TextHelpers
 
             File.WriteAllLines(fileName.FullFilePath(), lines);
         }
+
+        public static List<TeamModel> ConvertToTeamModels(this List<string> lines, string peopleFileName)
+        {
+            ///id,team name, list of ids separated by the pipe
+            ///3, Tim's team, 1|3|4
+            List<TeamModel> output = new List<TeamModel>();
+            List<PersonModel> people = peopleFileName.FullFilePath().LoadFile().ConvertToPersonModels();
+
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split(',');
+
+                TeamModel t = new TeamModel
+                {
+                    Id = int.Parse(cols[0]),
+                    TeamName = cols[1]
+                };
+                string[] personIds = cols[2].Split('|');
+                foreach (string id in personIds)
+                {
+                    t.TeamMembers.Add(people.Where(x => x.Id == int.Parse(id)).First());
+                }
+
+                output.Add(t);
+            }
+            return output;
+        }
+
+        public static void SaveToTeamsFile(this List<TeamModel> models, string fileName)
+        {
+            List<string> lines = new List<string>();
+            foreach (TeamModel p in models)
+            {
+                lines.Add($"{ p.Id },{ p.TeamName },{ ConvertPeopleListToString(p.TeamMembers) }");
+            }
+
+            File.WriteAllLines(fileName.FullFilePath(), lines);
+        }
+
+        public static string ConvertPeopleListToString(List<PersonModel> people)
+        {
+            if (people.Count == 0)
+            {
+                return "";
+            }
+
+            string output = "";
+            
+            foreach (PersonModel person in people)
+            {
+                output += $"{person.Id}|";
+            }
+            output = output.Substring(0, output.Length - 1);
+            return output;
+        }
     }
 }
