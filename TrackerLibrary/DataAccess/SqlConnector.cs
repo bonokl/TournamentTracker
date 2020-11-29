@@ -81,6 +81,56 @@ namespace TrackerLibrary.DataAccess
             }
         }
 
+        public TournamentModel CreateTournament(TournamentModel model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                SaveTournament(model, connection);
+
+                SaveTournamentPrizes(model, connection);
+
+                SaveTournamentEntries(model, connection);
+
+            }
+
+            return model;
+        }
+        private void SaveTournament(TournamentModel model, IDbConnection connection)
+        {
+            var p = new DynamicParameters();
+            p.Add("@TournamentName", model.TournamentName);
+            p.Add("@EntryFee", model.EntryFee);
+
+            connection.Execute("dbo.spTournaments_Insert", p, commandType: CommandType.StoredProcedure);
+            model.Id = p.Get<int>("@id");
+        }
+
+        private void SaveTournamentPrizes(TournamentModel model , IDbConnection connection)
+        {
+            var p = new DynamicParameters();
+            foreach (PrizeModel prize in model.Prizes)
+            {
+                p = new DynamicParameters();
+                p.Add("@TournamentId", model.Id);
+                p.Add("@PrizeId", prize.Id);
+
+                connection.Execute("dbo.spTournamentPrizes_Insert", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        private void SaveTournamentEntries(TournamentModel model, IDbConnection connection) 
+        {
+            var p = new DynamicParameters();
+            foreach (TeamModel team in model.EnteredTeams)
+            {
+                p = new DynamicParameters();
+                p.Add("@TournamentId", model.Id);
+                p.Add("@TeamId", team.Id);
+
+                connection.Execute("dbo.spTournamentEntries_Insert", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public List<PersonModel> GetPerson_All()
         {
             List<PersonModel> output;
