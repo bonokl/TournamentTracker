@@ -81,7 +81,7 @@ namespace TrackerLibrary.DataAccess
             }
         }
 
-        public TournamentModel CreateTournament(TournamentModel model)
+        public void CreateTournament(TournamentModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
@@ -93,7 +93,7 @@ namespace TrackerLibrary.DataAccess
 
             }
 
-            return model;
+            //return model;
         }
         private void SaveTournament(TournamentModel model, IDbConnection connection)
         {
