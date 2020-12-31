@@ -118,12 +118,14 @@ namespace TrackerUI
                 return;
             }
             // Create our tournament model
-            TournamentModel tm = new TournamentModel();
-            tm.TournamentName = tournamentNameValue.Text;
-            tm.EntryFee = fee;
+            TournamentModel tm = new TournamentModel
+            {
+                TournamentName = tournamentNameValue.Text,
+                EntryFee = fee,
 
-            tm.Prizes = selectedPrizes;
-            tm.EnteredTeams = selectedTeams;
+                Prizes = selectedPrizes,
+                EnteredTeams = selectedTeams
+            };
 
             // TODO - Wire our matchups
             TournamentLogic.CreateRounds(tm);

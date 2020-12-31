@@ -31,7 +31,7 @@ namespace TrackerLibrary
             List<MatchupModel> previousRound = model.Rounds[0];
             List<MatchupModel> currRound = new List<MatchupModel>();
             MatchupModel currMathcup = new MatchupModel();
-            while (round < rounds)
+            while (round <= rounds)
             {
                 
                 foreach (MatchupModel match in previousRound)
@@ -40,7 +40,7 @@ namespace TrackerLibrary
 
                     if (currMathcup.Entries.Count > 1)
                     {
-                        currMathcup.MatchRound = round;
+                        currMathcup.MatchupRound = round;
                         currRound.Add(currMathcup);
                         currMathcup = new MatchupModel();
                     }
@@ -63,7 +63,7 @@ namespace TrackerLibrary
                 curr.Entries.Add(new MatchupEntryModel { TeamCompeting = team });
                 if (byes > 0 || curr.Entries.Count > 1)
                 {
-                    curr.MatchRound = 1;
+                    curr.MatchupRound = 1;
                     output.Add(curr);
                     curr = new MatchupModel();
 
@@ -79,7 +79,17 @@ namespace TrackerLibrary
 
         private static int NumberOfByes(int rounds, int numberOfTeams)
         {
-            return 2 ^ rounds - numberOfTeams;
+            int output = 0;
+            int totalTeams = 1;
+
+            for (int i = 1; i <= rounds; i++)
+            {
+                totalTeams = totalTeams * 2;
+            }
+
+            output = totalTeams - numberOfTeams;
+
+            return output;
         }
 
         private static int FindNumberOfRounds(int teamCount)

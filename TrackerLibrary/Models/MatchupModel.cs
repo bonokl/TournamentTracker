@@ -11,8 +11,11 @@ namespace TrackerLibrary.Models
     /// </summary>
     public class MatchupModel
     {
-
+        // <summary>
+        ///  The unique identifier for the matchup
+        /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// The set of teams that are involved in this match.
         /// </summary>
@@ -26,6 +29,6 @@ namespace TrackerLibrary.Models
         /// <summary>
         /// Which round is this match part of.
         /// </summary>
-        public int MatchRound { get; set; }
+        public int MatchupRound { get; set; }
     }
 }
