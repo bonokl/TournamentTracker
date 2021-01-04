@@ -11,7 +11,7 @@ namespace TrackerLibrary.Models
     /// </summary>
     public class MatchupModel
     {
-        // <summary>
+        /// <summary>
         ///  The unique identifier for the matchup
         /// </summary>
         public int Id { get; set; }
